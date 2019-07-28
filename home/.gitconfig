@@ -1,0 +1,96 @@
+[color]
+  ui = auto
+
+[color "diff"]
+  meta = white bold
+  frag = cyan bold
+  old = red bold
+  new = green bold
+
+[core]
+  # editor = vim
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+  ignorecase = false
+
+[alias]
+  a = add
+  ua = reset HEAD
+  b = branch
+  c = commit
+  co = checkout
+  ap = add -p      # Patch mode for specified files
+  ca = commit -a   # Add all files and commit
+  cm = commit -m   # Commit message
+  cam = commit -am # Add all files and commit with message
+  s = status -sb   # Short status with current branch
+  master = !git checkout master && git pull --prune
+  develop = !git checkout develop && git pull --prune
+  
+  # When doing "git git log" or some such, do not complain about "git"
+  git = !git
+  
+  # Commits log with pretty format
+  l = log --all --graph --decorate --oneline
+
+  # Fully commits log with statistic
+  ll = log --stat --abbrev-commit
+
+  # Ignore files: append file to .ginignore
+  ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo `\n$2` >> .gitignore
+
+  # Initialize, add all files and commit
+  this = !git init && git add . && git commit -m 'Initial commit'
+
+  # Amend last commit
+  amend = commit --amend
+
+  # Ammend last commit with its original message
+  redo = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
+
+  # Reset index changes, but not the working tree
+  undo = reset --mixed HEAD^
+
+  # Checkout to HEAD revision
+  discard = checkout --
+
+  # List of contributors and how many commits each person has.
+  contrib = shortlog -sn
+
+  # See how many lines of code you have written today.
+  today = diff --shortstat "@{0 day ago}"
+
+  # How many lines in repo
+  stat = !git ls-files | xargs wc -l
+
+[push]
+  default = current
+
+# URL shorthands
+[url "git@github.com:"]
+  insteadOf = "gh:"
+  pushInsteadOf = "github:"
+  pushInsteadOf = "git://github.com/" # From GIT to SSH
+[url "git@gist.github.com:"]
+  insteadOf = "gst:"
+  pushInsteadOf = "gist:"
+  pushInsteadOf = "git://gist.github.com/" # From GIT to SSH
+
+# Add LFS commands
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+
+# Include local settings from .gitlocal
+# Requires Git 1.7.10
+# Setup:
+#   git config -f ~/.gitlocal user.email "your@email.com"
+#   git config -f ~/.gitlocal user.name "Name Lastname"
+# Example .gitlocal:
+# [user]
+#   name = Genesis Gabiola
+#   email = genesisgabiola@gmail.com
+[include]
+  path = ~/.gitlocal

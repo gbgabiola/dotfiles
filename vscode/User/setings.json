@@ -1,0 +1,81 @@
+{
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    // "editor.fontSize": 12,
+    "editor.tabSize": 2,
+    "editor.wordWrap": "on",
+    // "editor.formatOnPaste": true,
+    // "editor.formatOnSave": true,
+
+    // "eslint.autoFixOnSave": true,
+    // "eslint.alwaysShowStatus": true,
+    
+    "extensions.autoUpdate": false,
+    // "files.autoSave": "onFocusChange",
+    
+    "emmet.includeLanguages": {
+        "edge": "html",
+        "javascript": "javascriptreact"
+    },
+    "[python]": { "editor.tabSize": 4 },
+    "[javascript]": { 
+        "editor.tabSize": 2,
+        // "editor.formatOnSave": false
+    },
+
+    "prettier.disableLanguages": [
+        "js"
+    ],
+    
+    // "liveServer.settings.donotShowInfoMsg": true,
+    // "liveServer.settings.donotVerifyTags": true,
+    
+    // "terminal.integrated.fontFamily": "Anonymous Pro for Powerline",
+    "terminal.integrated.fontFamily": "DejaVu Sans Mono for Powerline",
+    // "terminal.integrated.fontFamily": "Fira Code",
+    // "terminal.integrated.fontSize": 16,
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\wsl.exe",
+    
+
+    // "editor.tokenColorCustomizations": {
+    //     "numbers": "#2247EB",
+    //     "comments": "#6D929C",
+    //     "functions": "#0D7C28",
+    // },
+    
+    // "workbench.colorCustomizations": {
+    //     "editor.background": "#1E1E1E",
+    //     "editor.foreground": "#D4D4D4",
+    //     "editor.inactiveSelectionBackground": "#3A3D41",
+    //     "editorIndentGuide.background": "#404040",
+    //     "editorIndentGuide.activeBackground": "#707070",
+    //     "editor.selectionHighlightBackground": "#ADD6FF26",
+    //     "list.dropBackground": "#383B3D",
+    //     "activityBarBadge.background": "#007ACC",
+    //     "sideBarTitle.foreground": "#BBBBBB",
+    //     "sideBar.background": "#1E1E1E",
+        
+    //     "statusBar.background": "#333333",
+    //     "statusBar.noFolderBackground": "#333333",
+    //     "statusBar.debuggingBackground": "#263238",
+    //     "list.inactiveSelectionBackground": "#C5DEF0",
+    //     "sideBar.foreground": "#000000",
+    //     "sideBarSectionHeader.background": "#CAC9C9",
+    //     "sideBarSectionHeader.foreground": "#000000",
+    //     "activityBar.border": "#FFFFFF",
+    //     "scrollbarSlider.activeBackground": "#77D4CB",
+    //     "scrollbarSlider.hoverBackground": "#8CE6DA",
+    //     "badge.background": "#81CA91",
+    //     "badge.background": "#DCDCAA"
+    // }
+        
+    "workbench.iconTheme": "vscode-icons",
+    // "workbench.colorTheme": "One Dark Pro"
+
+    // "gitProjectManager.baseProjectsFolders": [
+    //     "/mnt/c/Users/Genesis/workspace/progress",
+    //     "/mnt/c/Users/Genesis/workspace/100daysOfCode"
+    // ],
+    // "gitProjectManager.storeRepositoriesBetweenSessions": true
+}
