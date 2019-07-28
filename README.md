@@ -5,12 +5,12 @@ Install by running one of the following commands by just copying and then execut
 
 **via `curl`**
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/genesisgabiola/dotfiles/master/installer.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/genesisgabiola/dotfiles/master/install.sh)"
 ```
 
 **via `wget`**
 ```sh
-bash -c "$(wget https://raw.githubusercontent.com/genesisgabiola/dotfiles/master/installer.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/genesisgabiola/dotfiles/master/install.sh -O -)"
 ```
 
 ```sh
