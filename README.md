@@ -68,4 +68,4 @@ I'll be adding more resources soon, update regularly, and give back the credits 
 - [@sapegin](https://github.com/sapegin)
 
 ## License
-MIT © [Genesis Gabiola](https://genesisgabiola.netlify.com)
+MIT © [Genesis Gabiola](https://genesisgabiola.netlify.app)

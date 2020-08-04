@@ -59,10 +59,12 @@
   "workbench.settings.editor": "ui", // none
   "workbench.sideBar.location": "left",
   "workbench.startupEditor": "welcomePage", // none or newUntitledFile
+
   // "gitProjectManager.baseProjectsFolders": [
   //   "/c/Users/Genesis/workspace/progress"
   // ],
   // "gitProjectManager.storeRepositoriesBetweenSessions": true
+
   /**
    * ******************************
    * WEB CONFIG
@@ -96,7 +98,9 @@
     // "typescript": "html",
     // "edge": "html",
     // "ejs": "html",
-    "javascript": "javascriptreact"
+    "erb": "html",
+    "javascript": "javascriptreact",
+    // "jsx": "html"
   },
   /**
    * ******************************

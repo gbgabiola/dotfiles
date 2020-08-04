@@ -147,22 +147,27 @@ main() {
   sync_code
 
   # Extensions
-  code_install EditorConfig.EditorConfig
-  # code_install cdsama.shell-snippets
+  code_install formulahendry.auto-close-tag
+  code_install formulahendry.auto-rename-tag
+  code_install CoenraadS.bracket-pair-colorizer
+  code_install msjsdiag.debugger-for-chrome
+  code_install xabikos.javascriptsnippets
+  code_install techer.open-in-browser
+  code_install ms-vscode-remote.remote-wsl
+  code_install Shan.code-settings-sync
+  code_install vscode-icons-team.vscode-icons
+  code_install ms-vscode-remote.vscode-remote-extensionpack
+  code_install naumovs.color-highlight
+  code_install naumovs.color-highlight
+  code_install editorconfig.editorconfig
+  code_install donjayamanne.githistory
+  code_install eamodio.gitlens
+  code_install ritwickdey.liveserver
+  code_install yzhang.markdown-all-in-one
   code_install christian-kohler.npm-intellisense
   code_install christian-kohler.path-intellisense
-  code_install CoenraadS.bracket-pair-colorizer
-  # code_install cssho.vscode-svgviewer
-  code_install dbaeumer.vscode-eslint
-  # code_install eg2.tslint
   code_install esbenp.prettier-vscode
-  code_install formulahendry.auto-rename-tag
-  code_install jpoissonnier.vscode-styled-components
-  code_install kumar-harsh.graphql-for-vscode
-  code_install msjsdiag.debugger-for-chrome
-  code_install robertohuertasm.vscode-icons
-  code_install sidneys1.gitconfig
-  code_install zhuangtongfa.Material-theme
+  code_install dbaeumer.vscode-eslint
 
   # Finish
   on_finish
