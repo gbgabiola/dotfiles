@@ -1,12 +1,12 @@
 {
   /**
-   * ******************************
-   * GENERAL CONFIG
-   * ******************************
-   */
+  * ******************************
+  * GENERAL CONFIG
+  * ******************************
+  */
   "editor.colorDecorators": false,
   "editor.cursorBlinking": "blink",
-  "editor.fontFamily": "Fira Code",
+  "editor.fontFamily": "Fira Code", // "MesloLGS NF"
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
   "editor.fontWeight": "400",
@@ -32,25 +32,21 @@
   "extensions.ignoreRecommendations": false,
   "files.trimTrailingWhitespace": true,
   "git.alwaysShowStagedChangesResourceGroup": true,
-  "html.format.enable": true,
   "html.format.preserveNewLines": true,
   "html.format.wrapLineLength": 0,
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.donotVerifyTags": true,
   "markdown.extension.toc.levels": "2..2", // "1..6"
-  // "markdown.preview.fontSize": 12,
   "remote.WSL.fileWatcher.polling": true,
   "sync.forceUpload": true,
   "sync.gist": "e8a1ae2c432320f9b4f7f5fad7dfd22a",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
-  "terminal.integrated.fontFamily": "Hack Nerd Font", // "DejaVu Sans Mono for Powerline" or "Anonymous Pro for Powerline" or "FuraMono Nerd Font Mono" or "Hack Nerd Font"
+  "terminal.integrated.fontFamily": "MesloLGS NF",
   "terminal.integrated.shell.linux": "/usr/bin/zsh",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\wsl.exe",
   "update.enableWindowsBackgroundUpdates": false,
   "update.mode": "manual",
-  // "workbench.activityBar.visible": false,
-  // "workbench.editor.tabCloseButton": "off",
   // "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
   // this lets you quick open multiple items in a row and now have the previous ones closed on you
   "workbench.editor.enablePreviewFromQuickOpen": false,
@@ -60,16 +56,11 @@
   "workbench.sideBar.location": "left",
   "workbench.startupEditor": "welcomePage", // none or newUntitledFile
 
-  // "gitProjectManager.baseProjectsFolders": [
-  //   "/c/Users/Genesis/workspace/progress"
-  // ],
-  // "gitProjectManager.storeRepositoriesBetweenSessions": true
-
   /**
-   * ******************************
-   * WEB CONFIG
-   * ******************************
-   */
+  * ******************************
+  * WEB CONFIG
+  * ******************************
+  */
   // "beautify.config": {
   //   "indent_size": 2,
   //   "end_with_newline": true,
@@ -103,10 +94,10 @@
     // "jsx": "html"
   },
   /**
-   * ******************************
-   * AUTO-SAVE CONFIGS
-   * ******************************
-   */
+  * ******************************
+  * AUTO-SAVE CONFIGS
+  * ******************************
+  */
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "[markdown]": {
@@ -150,5 +141,8 @@
   "editor.useTabStops": true,
   "window.zoomLevel": 0, // -1
   "editor.parameterHints.enabled": false,
-  // "prettier.singleQuote": true,
+  "prettier.singleQuote": true,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
 }
