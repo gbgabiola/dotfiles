@@ -1,45 +1,18 @@
 {
   "$schema": "https://aka.ms/terminal-profiles-schema",
   "alwaysShowTabs": true,
-  "defaultProfile": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
+  "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
   "initialCols": 100,
   "initialRows": 25,
   "requestedTheme": "system",
   "showTabsInTitlebar": true,
   "showTerminalTitleInTitlebar": false,
   "wordDelimiters": " ./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}~?\u2502",
-  "profiles": [{
-      "acrylicOpacity": 0.75,
-      "background": "#000000",
-      "backgroundImage": "ms-appdata:///roaming/dev-dark.png",
-      "backgroundImageOpacity": 0.30000001192092896,
-      "backgroundImageStretchMode": "uniformToFill",
-      "closeOnExit": true,
-      "colorScheme": "Campbell",
-      "commandline": "wsl.exe -d Ubuntu-20.04",
-      "cursorColor": "#00FF00",
-      "cursorShape": "bar",
-      // "fontFace" : "UbuntuMono NF",
-      // "fontFace" : "Hack Nerd Font",
-      // "fontFace" : "Delugia Nerd Font",
-      "fontFace": "MesloLGS NF",
-      "fontSize": 10,
-      "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
-      "hidden": false,
-      "historySize": 9001,
-      "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-      "name": "Ubuntu-20.04",
-      "padding": "5, 5, 5, 5",
-      "scrollbarState": "hidden",
-      "snapOnInput": true,
-      "source": "Windows.Terminal.Wsl",
-      "startingDirectory": "//wsl$/Ubuntu-20.04/home/genesis",
-      "useAcrylic": false
-    },
+  "profiles": [
     {
       "acrylicOpacity": 0.75,
       "background": "#000000",
-      "backgroundImage": "ms-appdata:///roaming/dev-dark.png",
+      "backgroundImage": "ms-appdata:///roaming/dev-dark-v1.png",
       "backgroundImageOpacity": 0.30000001192092896,
       "backgroundImageStretchMode": "uniformToFill",
       "closeOnExit": true,
@@ -47,16 +20,17 @@
       "commandline": "wsl.exe -d Ubuntu",
       "cursorColor": "#00FF00",
       "cursorShape": "bar",
-      "fontFace": "UbuntuMono NF",
-      // "fontFace" : "Hack Nerd Font",
+      "fontFace": "MesloLGS NF",
       "fontSize": 10,
-      "guid": "{2c4de342-38b7-51cf-b940-2309a097f519}",
+      "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+      "hidden": false,
       "historySize": 9001,
       "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
       "name": "Ubuntu",
       "padding": "5, 5, 5, 5",
-      "scrollbarState": "hidden",
+      "scrollbarState": "visible",
       "snapOnInput": true,
+      "source": "Windows.Terminal.Wsl",
       "startingDirectory": "//wsl$/Ubuntu/home/genesis",
       "useAcrylic": false
     },
@@ -102,9 +76,33 @@
       "hidden": false,
       "name": "Azure Cloud Shell",
       "source": "Windows.Terminal.Azure"
+    },
+    {
+      "acrylicOpacity": 0.75,
+      "background": "#000000",
+      "backgroundImage": "ms-appdata:///roaming/dev-dark.png",
+      "backgroundImageOpacity": 0.30000001192092896,
+      "backgroundImageStretchMode": "uniformToFill",
+      "closeOnExit": true,
+      "colorScheme": "Campbell",
+      "commandline": "wsl.exe -d Ubuntu-20.04",
+      "cursorColor": "#00FF00",
+      "cursorShape": "bar",
+      "fontFace": "MesloLGS NF",
+      "fontSize": 10,
+      "guid": "{2c4de342-38b7-51cf-b940-2309a097f519}",
+      "historySize": 9001,
+      "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+      "name": "Ubuntu-20.04",
+      "padding": "5, 5, 5, 5",
+      "scrollbarState": "hidden",
+      "snapOnInput": true,
+      "startingDirectory": "//wsl$/Ubuntu-20.04/home/genesis",
+      "useAcrylic": false
     }
   ],
-  "keybindings": [{
+  "keybindings": [
+    {
       "command": "copy",
       "keys": [
         "ctrl+c"
@@ -171,7 +169,8 @@
       ]
     }
   ],
-  "schemes": [{
+  "schemes": [
+    {
       "background": "#0C0C0C",
       "black": "#0C0C0C",
       "blue": "#0037DA",
