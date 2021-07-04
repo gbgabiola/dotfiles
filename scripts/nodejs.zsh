@@ -62,7 +62,7 @@ install_nvm() {
   echo >> ~/.bashrc
   echo "# Set up NVM" >> ~/.bashrc
   info "Installing nvm..."
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
@@ -79,8 +79,8 @@ configure_npm_init() {
 
   # Defaults
   local name="Genesis Gabiola"
-  local email="genesisbritanicogabiola@gmail.com"
-  local website="https://genesisgabiola.netlify.app/"
+  local email="gbgabiola@gmail.com"
+  local website="https://genesisgabiola.tech/"
 
   ask "What is your name? ($name): " && read NAME
   ask "What is your email? ($email): " && read EMAIL
