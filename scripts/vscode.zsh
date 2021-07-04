@@ -149,15 +149,12 @@ main() {
   # Extensions
   code_install formulahendry.auto-close-tag
   code_install formulahendry.auto-rename-tag
-  code_install CoenraadS.bracket-pair-colorizer
+  code_install coenraads.bracket-pair-colorizer
   code_install msjsdiag.debugger-for-chrome
   code_install xabikos.javascriptsnippets
-  code_install techer.open-in-browser
   code_install ms-vscode-remote.remote-wsl
-  code_install Shan.code-settings-sync
   code_install vscode-icons-team.vscode-icons
   code_install ms-vscode-remote.vscode-remote-extensionpack
-  code_install naumovs.color-highlight
   code_install naumovs.color-highlight
   code_install editorconfig.editorconfig
   code_install donjayamanne.githistory
@@ -168,6 +165,7 @@ main() {
   code_install christian-kohler.path-intellisense
   code_install esbenp.prettier-vscode
   code_install dbaeumer.vscode-eslint
+  code_install wakatime.vscode-wakatime
 
   # Finish
   on_finish
