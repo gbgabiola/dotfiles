@@ -43,7 +43,7 @@ finish() {
 
 # Set directory
 export DOTFILES=${1:-"$HOME/.dotfiles"}
-GITHUB_REPO_URL_BASE="https://github.com/genesisgabiola/dotfiles"
+GITHUB_REPO_URL_BASE="https://github.com/gbgabiola/dotfiles"
 
 on_start() {
   info "           __        __   ____ _  __           "
@@ -52,7 +52,7 @@ on_start() {
   info "  _ / /_/ // /_/ // /_ / __// // //  __/(__  ) "
   info " (_)\__,_/ \____/ \__//_/  /_//_/ \___//____/  "
   info "                                               "
-  info "              by @genesisgabiola               "
+  info "              by @gbgabiola               "
   info "                                               "
 
   info "This script will guide you through installing git, zsh and etc."

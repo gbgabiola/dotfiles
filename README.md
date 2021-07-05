@@ -1,20 +1,21 @@
 # Genesis Gabiola's dotfiles
 
 ## Installation
+
 Install by running one of the following commands by just copying and then execute it in the terminal:
 
 **via `curl`**
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/genesisgabiola/dotfiles/master/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/gbgabiola/dotfiles/master/install.sh)"
 ```
 
 **via `wget`**
 ```sh
-bash -c "$(wget https://raw.githubusercontent.com/genesisgabiola/dotfiles/master/install.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/gbgabiola/dotfiles/master/install.sh -O -)"
 ```
 
 ```sh
-$ git clone https://github.com/genesisgabiola/dotfiles.git ~/.dotfiles
+$ git clone https://github.com/gbgabiola/dotfiles.git ~/.dotfiles
 $ sudo ~/.dotfiles/install.sh
 
 # or
@@ -26,12 +27,14 @@ This will symlink the appropriate files in `.dotfiles` to your home directory.
 Everything is configured and tweaked within `~/.dotfiles`.
 
 Tell Git who you are using these commands:
+
 ```sh
 git config -f ~/.gitlocal user.email "email@yoursite.com"
 git config -f ~/.gitlocal user.name "FirstName LastName"
 ```
 
 ## Updating
+
 Use `update` command to get latest updates:
 ```sh
 update
@@ -39,21 +42,25 @@ update
 
 This command will update dotfiles, their dependencies, `apt-get` packages, global `npm` dependencies, and optional for `gems`.
 
-### Notes
+
+## Notes
+
 Your dotfiles are how you personalize your System environment.
 
 > If you're interested in the philosophy behind why projects like these are awesome, you might want to [read zach post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
 
-If you need to learn how to install Ubuntu on Windows or Windows Subsystem for Linux, take a look at this [Microsoft Guide](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide)
+If you need to learn how to install Ubuntu on Windows or Windows Subsystem for Linux, take a look at this [Microsoft Guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 
 ## Bugs
+
 Dotfiles must be updated every now and then, that means if I forgot to check the requirements or dependencies, there's a good chance it can break something.
 
-If you run into any blockers or error please [open an issue](https://github.com/genesisgabiola/dotfiles/issues) on this repository, and I would try to fix it as soon as possible for you.
+If you run into any blockers or error please [open an issue](https://github.com/gbgabiola/dotfiles/issues) on this repository, and I would try to fix it as soon as possible for you.
 
 
 ## Resources
+
 I'll be adding more resources soon, update regularly, and give back the credits to the other creators.
 
 - [dotfiles](http://dotfiles.github.com/)
@@ -61,11 +68,15 @@ I'll be adding more resources soon, update regularly, and give back the credits 
 - [Powerline fonts](https://github.com/powerline/fonts)
 - [Spaceships ZSH](https://github.com/denysdovhan/spaceship-prompt)
 
+
 ## Credits
+
 - [@holman](https://github.com/holman)
 - [@jldeen](https://github.com/jldeen)
 - [@denysdovhan](https://github.com/denysdovhan)
 - [@sapegin](https://github.com/sapegin)
 
+
 ## License
-MIT © [Genesis Gabiola](https://genesisgabiola.netlify.app)
+
+MIT © [Genesis Gabiola](https://genesisgabiola.tech)
