@@ -5,31 +5,27 @@
    * ******************************
    */
   "editor.autoIndent": "full",
+  "editor.bracketPairColorization.enabled": true,
   "editor.colorDecorators": true,
   "editor.cursorBlinking": "blink",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.find.seedSearchStringFromSelection": true,
   "editor.detectIndentation": false,
-  "editor.fontFamily": "Fira Code", // "MesloLGS NF"
+  "editor.fontFamily": "FiraCode NFM", // "MesloLGS NF", "Fira Code", "Hack Nerd Font Mono"
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
   "editor.fontWeight": "400",
+  "editor.guides.bracketPairs": true,
   "editor.letterSpacing": 0,
   "editor.lineHeight": 19,
   "editor.matchBrackets": "always",
-  "editor.minimap.enabled": true,
-  "editor.minimap.maxColumn": 200,
-  "editor.minimap.renderCharacters": false,
-  "editor.minimap.showSlider": "always",
+  "editor.mouseWheelZoom": false,
   "editor.multiCursorModifier": "alt",
   "editor.parameterHints.enabled": false,
   "editor.quickSuggestionsDelay": 30,
-  "editor.renderWhitespace": "none",
   "editor.rulers": [80, 100],
   "editor.scrollBeyondLastLine": true,
-  // "editor.showFoldingControls": "always", // mouseover
   "editor.smoothScrolling": true,
-  "editor.snippetSuggestions": "inline", // "top" to show snippets before any other auto completion
+  "editor.snippetSuggestions": "top", // "top" to show snippets before any other auto completion or use inline
   "editor.tabSize": 2,
   "editor.useTabStops": true, // -1
   "editor.wordWrap": "on",
@@ -39,29 +35,29 @@
   "extensions.autoUpdate": false,
   "extensions.ignoreRecommendations": false,
   "git.alwaysShowStagedChangesResourceGroup": true,
+  "git.confirmSync": false,
+  "git.suggestSmartCommit": false,
   "html.format.preserveNewLines": true,
-  "html.format.wrapLineLength": 0,
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.donotVerifyTags": true,
   "markdown.extension.toc.levels": "2..2", // "1..6"
-  "remote.WSL.fileWatcher.polling": true,
+  "security.workspace.trust.untrustedFiles": "open",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
-  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "terminal.integrated.fontFamily": "Hack Nerd Font Mono", // "MesloLGMDZ NFM"
+  "terminal.integrated.fontSize": 11,
   "terminal.integrated.defaultProfile.linux": "zsh",
-  "terminal.integrated.defaultProfile.windows": "Ubuntu-20.04 (WSL)",
-  "update.enableWindowsBackgroundUpdates": false,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.external.windowsExec": "C:\\Users\\genesis\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe",
   "update.mode": "manual",
-  // "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
-  // this lets you quick open multiple items in a row and now have the previous ones closed on you
   "window.closeWhenEmpty": true,
   "window.openFilesInNewWindow": "off",
+  "workbench.colorTheme": "Dracula",
   "workbench.editor.enablePreview": true,
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "workbench.editor.tabSizing": "shrink",
-  "workbench.iconTheme": "vscode-icons",
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.settings.editor": "ui",
-  "workbench.sideBar.location": "right",
   "workbench.startupEditor": "newUntitledFile",
 
   /**
@@ -70,15 +66,15 @@
    * ******************************
    */
   "emmet.includeLanguages": {
-    // "javascript": "html",
-    // "markdown": "html",
-    // "edge": "html",
-    // "ejs": "html",
-    "erb": "html",
     "javascript": "javascriptreact"
-    // "typescript": "html"
-    // "jsx": "html"
+    // "ejs": "html"
+    // "hbs": "html"
+    // "typescript": "html",
+    // "markdown": "html",
+    // "erb": "html",
+    // "jsx": "html",
   },
+
   /**
    * ******************************
    * AUTO-SAVE CONFIGS
@@ -91,9 +87,16 @@
     "source.fixAll": true,
     "source.fixAll.eslint": true
   },
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one",
-    "editor.quickSuggestions": true,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
     "files.trimTrailingWhitespace": false
   },
   "[python]": {
@@ -104,21 +107,51 @@
   },
   // Optional BUT IMPORTANT: If you have the prettier extension enabled for other languages like CSS and HTML, turn it off for JS since we are doing it through Eslint already
   // "[javascript]": {
-  // turn it off for JS and JSX, we will do this via eslint
-  // "editor.formatOnSave": false,
-  // "editor.defaultFormatter": "esbenp.prettier-vscode" // or null
+  //   // turn it off for JS and JSX, we will do this via eslint
+  //   "editor.formatOnSave": false,
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode" // or null
   // },
   // "[javascriptreact]": {
-  // "editor.formatOnSave": false,
-  // "editor.defaultFormatter": "esbenp.prettier-vscode" // or null
+  //   "editor.formatOnSave": false,
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode" // or null
   // },
-  "eslint.alwaysShowStatus": true,
-  "eslint.validate": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact",
+    "javascript",
+    "javascriptreact"
+  ],
   "prettier.arrowParens": "avoid",
-  "prettier.printWidth": 80, // 80
   "prettier.singleQuote": true,
-  "vsicons.dontShowNewVersionMessage": true,
-  "security.workspace.trust.untrustedFiles": "open"
+  "files.associations": {
+    "*.module": "php",
+    "*.ejs": "html"
+    // "*.js": "javascriptreact"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "gitlens.defaultDateLocale": null,
+  "gitlens.hovers.currentLine.over": "line",
+  "html.format.enable": false,
+  // "mssql.connections": [
+  //   {
+  //     "server": "127.0.0.1",
+  //     "database": "",
+  //     "authenticationType": "SqlLogin",
+  //     "user": "sa",
+  //     "password": "",
+  //     "emptyPasswordInput": false,
+  //     "savePassword": true
+  //   }
+  // ],
+  "diffEditor.ignoreTrimWhitespace": false
+  // "liveSassCompile.settings.formats": [
+  //   {
+  //     "format": "expanded",
+  //     "extensionName": ".css",
+  //     "savePath": "/css" // null
+  //   }
+  // ],
+  // "liveSassCompile.settings.generateMap": false
   // "azure.cloud": "AzureCloud",
   // "files.associations": {
   //   "*.css": "scss"
