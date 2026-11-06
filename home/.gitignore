@@ -15,3 +15,7 @@ yarn-error.log
 
 # Installed Bower packages
 bower_components
+
+.localrc
+.localrc.private
+.env.local
