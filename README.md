@@ -46,6 +46,39 @@ Startup/             Windows startup automation
 etc/                 System-level configuration
 ```
 
+## Local Configuration
+
+Machine-specific settings should be placed in:
+
+```bash
+~/.localrc
+```
+
+## Optional Enhancement
+
+If you have a tracked `.gitconfig` in:
+
+```text
+home/.gitconfig
+```
+
+add:
+
+```text
+[include]
+    path = ~/.gitconfig.local
+```
+
+Then create:
+
+home/.gitconfig.local.example
+
+```
+[user]
+    name = Your Name
+    email = your@email.com
+```
+
 ## Installation
 
 Install by running one of the following commands by just copying and then execute it in the terminal:
