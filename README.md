@@ -1,17 +1,63 @@
 # Genesis Gabiola's dotfiles
 
+## Supported Platforms
+
+| Platform | Status |
+|-----------|---------|
+| Windows 11 + WSL2 Ubuntu | ✅ Primary |
+| Ubuntu LTS | ✅ Supported |
+| macOS | ⚠️ Untested |
+| Other Linux Distros | ⚠️ Best Effort |
+
+This dotfiles repository is primarily optimized for:
+
+- Windows 11
+- WSL2
+- Ubuntu
+- Windows Terminal
+- VS Code Remote WSL
+
+## WSL Recommended Setup
+
+Required software:
+
+- Windows 11
+- WSL2
+- Ubuntu
+- Git
+- Windows Terminal
+- VS Code
+
+Verify WSL installation:
+
+```bash
+wsl --version
+```
+
+## Repository Layout
+
+```text
+home/                User dotfiles
+bin/                 User commands
+scripts/             Utility scripts
+windows-terminal/    Windows Terminal settings
+vscode/              VS Code settings
+Startup/             Windows startup automation
+etc/                 System-level configuration
+```
+
 ## Installation
 
 Install by running one of the following commands by just copying and then execute it in the terminal:
 
 **via `curl`**
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/gbgabiola/dotfiles/master/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/gbgabiola/dotfiles/main/install.sh)"
 ```
 
 **via `wget`**
 ```sh
-bash -c "$(wget https://raw.githubusercontent.com/gbgabiola/dotfiles/master/install.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/gbgabiola/dotfiles/main/install.sh -O -)"
 ```
 
 ```sh
