@@ -1,0 +1,4 @@
+# Copy to ~/.localrc
+
+export GIT_AUTHOR_NAME="John Doe"
+export GIT_AUTHOR_EMAIL="john@example.com"
