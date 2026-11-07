@@ -59,6 +59,17 @@ git config --file ~/.gitlocal user.name "Your Name"
 git config --file ~/.gitlocal user.email "you@example.com"
 ```
 
+## Optional development tools
+
+Run `zsh scripts/nodejs.zsh` to install nvm and the current Node.js LTS.
+The nvm release is pinned near the top of that script. To load nvm in new
+Zsh sessions, add this to your own `~/.localrc`:
+
+```sh
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+[ ! -s "$NVM_DIR/nvm.sh" ] || . "$NVM_DIR/nvm.sh"
+```
+
 ## Update and restore
 
 From your checkout, run `zsh scripts/update.zsh`. It requires a clean
