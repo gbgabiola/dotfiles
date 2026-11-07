@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+set -e
 trap on_error SIGKILL SIGTERM
 
 e='\033'
@@ -61,7 +62,7 @@ on_start() {
 check_code() {
   info "Checking if VSCode is installed in PATH..."
 
-  if ! [ $(which code) ]; then
+  if ! command -v code >/dev/null 2>&1; then
     error "VSCode command is not installed in PATH!"
     echo
     echo "Please, perform following actions:"
@@ -72,37 +73,6 @@ check_code() {
     echo
     exit 1
   fi
-
-  finish
-}
-
-sync_code() {
-  local src="$DOTFILES/vscode/User"
-
-  ask "Would you like to sync VSCode settings?" && read answer
-  if [[ ${answer} != "y" ]]; then
-    success "Skipping..."
-    return
-  fi
-
-  if [[ "$(uname)" == 'Darwin' ]]; then
-    local dest="$HOME/Library/Application Support/Code/User"
-  elif [[ "$(uname)" == 'Linux' ]]; then
-    local dest="$HOME/.config/Code/User"
-  else
-    error "Error: Failed to find VSCode user folder!"
-    exit 1
-  fi
-
-  info "VSCode user folder is: $dest"
-
-  info "Deleting $dest..."
-  if [ -d "$dest" ]; then
-    rm -rf "$dest" && success "Deleted!"
-  fi
-
-  info "Linking $dest to $src..."
-  ln -s "$src" "$dest" && success "Linked!"
 
   finish
 }
@@ -119,7 +89,7 @@ code_install() {
     return
   fi
 
-  code --install-extension $extension
+  code --install-extension "$extension"
 
   finish
 }
@@ -143,14 +113,10 @@ main() {
   on_start
   # Check 'code' in PATH
   check_code
-  # Sync settings
-  sync_code
 
   # Extensions
   code_install formulahendry.auto-close-tag
   code_install formulahendry.auto-rename-tag
-  code_install coenraads.bracket-pair-colorizer
-  code_install msjsdiag.debugger-for-chrome
   code_install xabikos.javascriptsnippets
   code_install ms-vscode-remote.remote-wsl
   code_install vscode-icons-team.vscode-icons

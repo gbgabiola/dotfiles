@@ -1,13 +1,8 @@
 #!/usr/bin/env zsh
 
-# Bootstrap script for installing applications and tools
+# Run the optional setup helpers from this checkout.
+set -e
 
-# Ask for the administrator password upfront
-sudo -v
-
-export DOTFILES=${DOTFILES:="$HOME/.dotfiles"}
-
-cd $DOTFILES/scripts
-. ./nodejs.zsh
-. ./vscode.zsh
-cd -
+scripts_dir=${0:A:h}
+zsh "$scripts_dir/nodejs.zsh"
+zsh "$scripts_dir/vscode.zsh"

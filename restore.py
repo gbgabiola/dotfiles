@@ -1,42 +1,56 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+"""Restore entries from one sync snapshot into an existing home directory."""
 
-"""
-Restoring files.
-Restore files from backup into home.
-"""
-
+import argparse
 import os
-import shutil
+from pathlib import Path
+import sys
 
-DOTFILES_DIR = os.path.dirname(os.path.abspath(__file__))
-BACKUP_DIR   = os.path.join(DOTFILES_DIR, 'backup')
-HOME_DIR     = os.path.expanduser('~')
+from sync import ROOT, managed_link
 
-# remove path
-def forse_remove(path):
-    if os.path.isdir(path) and not os.path.islink(path):
-        shutil.rmtree(path, False)
-    else:
-        os.unlink(path)
-
-# copy path to dest
-def copy(path, dest):
-    if os.path.isdir(path):
-        shutil.copytree(path, dest)
-    else:
-        shutil.copy(path, dest)
 
 def main():
-    if os.path.exists(BACKUP_DIR):
-        os.chdir(BACKUP_DIR)
-        for filename in os.listdir(BACKUP_DIR):
-            dest = os.path.join(HOME_DIR, filename)
-            if os.path.exists(dest):
-                forse_remove(dest)
-            copy(filename, dest)
-            print "'%s' has been restored!" % dest
-    else:
-        print "There isn't backup in '%s'!" % BACKUP_DIR
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("snapshot", type=Path)
+    parser.add_argument("--destination", type=Path, default=Path.home())
+    parser.add_argument("--source", type=Path, default=ROOT / "home")
+    args = parser.parse_args()
+    snapshot = args.snapshot.expanduser().resolve()
+    destination = args.destination.expanduser().resolve()
+    source = args.source.expanduser().resolve()
+    if not snapshot.is_dir() or not destination.is_dir():
+        parser.error("snapshot and destination must be existing directories")
+    if (snapshot in destination.parents or snapshot in source.parents
+            or source in snapshot.parents or snapshot == destination
+            or snapshot == source or destination == source):
+        parser.error("snapshot, source, and destination must be separate")
 
-if __name__ == '__main__':
-    main()
+    for saved in sorted(snapshot.iterdir()):
+        target = destination / saved.name
+        if target in snapshot.parents or target in source.parents:
+            parser.error(f"destination entry overlaps the snapshot or source: {target}")
+
+    for saved in sorted(snapshot.iterdir()):
+        target = destination / saved.name
+        previous_link = None
+        if os.path.lexists(target):
+            if not managed_link(target, source / saved.name):
+                print(f"Skipped unrelated entry: {target}", file=sys.stderr)
+                continue
+            previous_link = os.readlink(target)
+            target.unlink()
+
+        try:
+            saved.rename(target)
+        except OSError:
+            if previous_link is not None and not os.path.lexists(target):
+                target.symlink_to(previous_link)
+            raise
+        print(f"Restored: {target}")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except OSError as exc:
+        sys.exit(f"restore: {exc}")
