@@ -35,3 +35,10 @@ vscode/User/vsicons.settings.json
 
 # Local VSCode settings
 .vscode
+
+# Python bytecode
+__pycache__/
+
+# Machine-specific overrides
+/home/.localrc
+/home/.gitlocal
