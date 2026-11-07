@@ -1,152 +1,98 @@
 # Genesis Gabiola's dotfiles
 
-## Supported Platforms
+Personal shell, Git, editor, and terminal settings for Ubuntu on WSL 2. Native
+Ubuntu uses the same Linux setup. macOS and other Linux distributions are
+untested.
 
-| Platform | Status |
-|-----------|---------|
-| Windows 11 + WSL2 Ubuntu | ✅ Primary |
-| Ubuntu LTS | ✅ Supported |
-| macOS | ⚠️ Untested |
-| Other Linux Distros | ⚠️ Best Effort |
+## Install on Ubuntu or WSL
 
-This dotfiles repository is primarily optimized for:
-
-- Windows 11
-- WSL2
-- Ubuntu
-- Windows Terminal
-- VS Code Remote WSL
-
-## WSL Recommended Setup
-
-Required software:
-
-- Windows 11
-- WSL2
-- Ubuntu
-- Git
-- Windows Terminal
-- VS Code
-
-Verify WSL installation:
-
-```bash
-wsl --version
-```
-
-## Repository Layout
-
-```text
-home/                User dotfiles
-bin/                 User commands
-scripts/             Utility scripts
-windows-terminal/    Windows Terminal settings
-vscode/              VS Code settings
-Startup/             Windows startup automation
-etc/                 System-level configuration
-```
-
-## Local Configuration
-
-Machine-specific settings should be placed in:
-
-```bash
-~/.localrc
-```
-
-## Optional Enhancement
-
-If you have a tracked `.gitconfig` in:
-
-```text
-home/.gitconfig
-```
-
-add:
-
-```text
-[include]
-    path = ~/.gitconfig.local
-```
-
-Then create:
-
-home/.gitconfig.local.example
-
-```
-[user]
-    name = Your Name
-    email = your@email.com
-```
-
-## Installation
-
-Install by running one of the following commands by just copying and then execute it in the terminal:
-
-**via `curl`**
-```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/gbgabiola/dotfiles/main/install.sh)"
-```
-
-**via `wget`**
-```sh
-bash -c "$(wget https://raw.githubusercontent.com/gbgabiola/dotfiles/main/install.sh -O -)"
-```
+Run these commands in Ubuntu as your regular user. On WSL, keep the checkout
+under your Linux home directory so the checkout and home directory share a
+filesystem.
 
 ```sh
-$ git clone https://github.com/gbgabiola/dotfiles.git ~/.dotfiles
-$ sudo ~/.dotfiles/install.sh
-
-# or
-$ chmod +x install.sh
-$ ./install.sh
+sudo apt update
+sudo apt install git python3 zsh
+git clone https://github.com/gbgabiola/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+bash install.sh --dry-run
+bash install.sh
 ```
 
-This will symlink the appropriate files in `.dotfiles` to your home directory.  
-Everything is configured and tweaked within `~/.dotfiles`.
+The installer links entries from `home/` into your home directory. It skips
+local overrides and templates. If a destination already exists, the installer
+asks before replacing it and saves the original in a new `backup/sync-*`
+directory. Noninteractive runs skip conflicts. You can rerun the installer:
+existing links to the same checkout are kept. Backing up a conflict requires
+the backup location and the destination to share a filesystem.
 
-Tell Git who you are using these commands:
+To use Zsh as your login shell, run `chsh -s "$(command -v zsh)"` once and
+start a new login session. Package installation and Windows app setup are
+separate from linking dotfiles.
+
+## Personalize this machine
+
+If an older install linked `~/.localrc` to a tracked file, make it a regular
+file **before** updating the checkout. From Ubuntu, run:
 
 ```sh
-git config -f ~/.gitlocal user.email "email@yoursite.com"
-git config -f ~/.gitlocal user.name "FirstName LastName"
+if [ -L "$HOME/.localrc" ] && [ -f "$HOME/.localrc" ]; then
+  tmp=$(mktemp "$HOME/.localrc.XXXXXX") &&
+    cp -- "$HOME/.localrc" "$tmp" &&
+    mv -f -- "$tmp" "$HOME/.localrc"
+fi
 ```
 
-## Updating
+If the old link is already dangling, inspect it with `ls -l ~/.localrc`, remove
+the link with `unlink ~/.localrc`, then use the template below.
 
-Use `update` command to get latest updates:
+- **Zsh overrides:** Copy `home/.localrc.example` to `~/.localrc` if you don't
+  already have one. Add editor, locale, or machine-specific environment
+  settings there. Zsh reads it at the end of `home/.zshrc`.
+- **Git identity:** The `[include]` block at the end of `home/.gitconfig` reads
+  `~/.gitlocal`. Set your identity there and remove any old
+  `GIT_AUTHOR_NAME` or `GIT_AUTHOR_EMAIL` exports from `~/.localrc` so they
+  don't override the Git settings.
+
 ```sh
-update
+git config --file ~/.gitlocal user.name "Your Name"
+git config --file ~/.gitlocal user.email "you@example.com"
 ```
 
-This command will update dotfiles, their dependencies, `apt-get` packages, global `npm` dependencies, and optional for `gems`.
+## Update and restore
 
+From your checkout, run `zsh scripts/update.zsh`. It requires a clean
+checkout with an upstream branch, pulls with `--ff-only`, and reruns the
+installer. Update Ubuntu packages and language tooling separately.
 
-## Notes
+To undo replacements made during a sync, use the snapshot path printed by
+the installer:
 
-Your dotfiles are how you personalize your System environment.
+```sh
+python3 restore.py backup/sync-REPLACE-WITH-YOUR-SNAPSHOT
+```
 
-> If you're interested in the philosophy behind why projects like these are awesome, you might want to [read zach post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
+Restore moves the saved entries back, consuming those entries from the
+snapshot. It skips any destination that is neither missing nor still linked to
+this checkout. New links that replaced nothing have no backup; remove those
+links individually if you no longer want them. Keep the checkout in place
+while its links are in use.
 
-If you need to learn how to install Ubuntu on Windows or Windows Subsystem for Linux, take a look at this [Microsoft Guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+## Where to make changes
 
+| What | Where to edit or apply it |
+| --- | --- |
+| Shared shell settings | Edit `home/.zshrc`. Put environment and PATH changes near the top; keep the local override block last. |
+| Shared Git settings | Edit the relevant section in `home/.gitconfig`. Add identity only to `~/.gitlocal`. |
+| New shared home files | Add them to `home/` and preview with `bash install.sh --dry-run`. Put samples in files ending in `.example`. |
+| Commands and tooling | Add commands to `bin/`; add standalone setup utilities to `scripts/`. |
+| WSL settings | Review `.wslconfig` for the Windows user profile and `etc/wsl.conf` for `/etc/wsl.conf` inside Ubuntu. Merge only the settings you need. |
+| Windows Terminal and VS Code | Use `windows-terminal/settings.json` and `vscode/User/` as references; merge the relevant settings into your app's existing configuration. |
+| Windows startup | Review `Startup/` before applying its Windows startup files manually. |
 
-## Bugs
-
-Dotfiles must be updated every now and then, that means if I forgot to check the requirements or dependencies, there's a good chance it can break something.
-
-If you run into any blockers or error please [open an issue](https://github.com/gbgabiola/dotfiles/issues) on this repository, and I would try to fix it as soon as possible for you.
-
-
-## Resources
-
-I'll be adding more resources soon, update regularly, and give back the credits to the other creators.
-
-- [dotfiles](http://dotfiles.github.com/)
-- [Oh My ZSH](http://ohmyz.sh/)
-- [Powerline fonts](https://github.com/powerline/fonts)
-- [Spaceships ZSH](https://github.com/denysdovhan/spaceship-prompt)
-
+If you delete or rename a file under `home/`, check the corresponding link
+in your home directory. Sync does not prune links; remove the old link after
+verifying it points into this checkout.
 
 ## Credits
 
@@ -154,8 +100,5 @@ I'll be adding more resources soon, update regularly, and give back the credits 
 - [@jldeen](https://github.com/jldeen)
 - [@denysdovhan](https://github.com/denysdovhan)
 - [@sapegin](https://github.com/sapegin)
-
-
-## License
 
 MIT © [Genesis Gabiola](https://genesisgabiola.tech)
