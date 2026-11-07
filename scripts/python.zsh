@@ -1,23 +1,32 @@
-# next install python (both 2.x and 3.x trees) using Pyenv
-curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
-# install a couple of plugins...
-git clone git://github.com/yyuu/pyenv-pip-migrate.git ~/.pyenv/plugins/pyenv-pip-migrate
-git clone https://github.com/yyuu/pyenv-ccache.git ~/.pyenv/plugins/pyenv-ccache
+#!/usr/bin/env zsh
 
-if ! grep -qc 'pyenv init' ~/.bashrc ; then
-  echo "## Adding pyenv to .bashrc ##"
-  echo >> ~/.bashrc
-  echo "# Set up Pyenv" >> ~/.bashrc
-  echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-  echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-  echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+set -e
+
+python_version=${1:-3.15}
+if (( $# > 1 )) || [[ ! $python_version =~ '^3\.[0-9]+(\.[0-9]+)?$' ]]; then
+  print -u2 'Usage: zsh scripts/python.zsh [3.minor[.patch]]'
+  exit 2
 fi
-# run the above locally to use in this shell
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
-pyenv install 2.7.15
-pyenv install 3.7.0
-# 'python' and 'python2.7' target 2.7.15 while 'python3.6' targets 3.6.5
-pyenv global 2.7.15 3.7.0
+pyenv_version=v2.8.14
+export PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
+
+if [[ -x "$PYENV_ROOT/bin/pyenv" ]]; then
+  pyenv_bin="$PYENV_ROOT/bin/pyenv"
+elif command -v pyenv >/dev/null 2>&1; then
+  pyenv_bin=$(command -v pyenv)
+elif [[ -e "$PYENV_ROOT" || -L "$PYENV_ROOT" ]]; then
+  print -u2 -- "Cannot install pyenv over $PYENV_ROOT. Choose a different PYENV_ROOT."
+  exit 1
+else
+  git clone --depth 1 --branch "$pyenv_version" https://github.com/pyenv/pyenv.git "$PYENV_ROOT"
+  pyenv_bin="$PYENV_ROOT/bin/pyenv"
+fi
+
+if ! release=$("$pyenv_bin" latest -k "$python_version"); then
+  print -u2 -- "Update your pyenv installation or choose a known Python version."
+  exit 1
+fi
+
+"$pyenv_bin" install -s "$release"
+print -r -- "Python $release is installed. Run 'pyenv local $release' in a project to select it."

@@ -70,6 +70,26 @@ export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
 [ ! -s "$NVM_DIR/nvm.sh" ] || . "$NVM_DIR/nvm.sh"
 ```
 
+For a project that needs a separate Python version, install the
+[pyenv build dependencies](https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
+first. Then run `zsh scripts/python.zsh` for the latest Python 3.15 patch
+known to your pyenv, or pass another version such as `3.14`. The script
+pins pyenv for new installs and reuses an existing installation. It leaves
+your global Python selection in place.
+
+To make pyenv available in Zsh, add this to your own `~/.localrc`:
+
+```zsh
+export PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
+[[ ! -d "$PYENV_ROOT/bin" ]] || path=("$PYENV_ROOT/bin" "${path[@]}")
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init - zsh)"
+fi
+```
+
+Open a new shell and run the `pyenv local` command printed by the installer
+from the project directory.
+
 ## Update and restore
 
 From your checkout, run `zsh scripts/update.zsh`. It requires a clean
