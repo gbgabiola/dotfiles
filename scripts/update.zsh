@@ -1,157 +1,34 @@
 #!/usr/bin/env zsh
+# Update only this dotfiles checkout, then reconcile its home links.
+set -eu
 
-# Get System Updates, update NPM packages and dotfiles
-# Source: https://github.com/sapegin/dotfiles/blob/master/setup/update.sh
-
-trap on_error SIGKILL SIGTERM
-
-e='\033'
-RESET="${e}[0m"
-BOLD="${e}[1m"
-CYAN="${e}[0;96m"
-RED="${e}[0;91m"
-YELLOW="${e}[0;93m"
-GREEN="${e}[0;92m"
-
-_exists() {
-  command -v $1 > /dev/null 2>&1
-}
-
-# Success reporter
-info() {
-  echo -e "${CYAN}${*}${RESET}"
-}
-
-# Error reporter
-error() {
-  echo -e "${RED}${*}${RESET}"
-}
-
-# Success reporter
-success() {
-  echo -e "${GREEN}${*}${RESET}"
-}
-
-# End section
-finish() {
-  success "Done!"
-  echo
-  sleep 1
-}
-
-# Set directory
-export DOTFILES=${1:-"$HOME/.dotfiles"}
-
-on_start() {
-  info '           __        __   ____ _  __            '
-  info '      ____/ /____   / /_ / __/(_)/ /___   _____ '
-  info '     / __  // __ \ / __// /_ / // // _ \ / ___/ '
-  info '  _ / /_/ // /_/ // /_ / __// // //  __/(__  )  '
-  info ' (_)\__,_/ \____/ \__//_/  /_//_/ \___//____/   '
-  info '                                                '
-  info '              by @gbgabiola                '
-  info '                                                '
-}
-
-update_dotfiles() {
-  info "Updating dotfiles..."
-
-  cd $DOTFILES
-  git pull origin master
-  ./sync.py
-  cd - > /dev/null 2>&1
-
-  finish
-}
-
-update_apt_get() {
-  if ! _exists apt-get; then
-    return
-  fi
-
-  info "Updating Ubuntu and installed packages..."
-
-  sudo apt-get update
-  sudo apt-get upgrade -y
-  sudo apt-get autoremove -y
-  sudo apt-get autoclean -y
-
-  finish
-}
-
-update_npm() {
-  if ! _exists npm; then
-    return
-  fi
-
-  info "Updating NPM..."
-
-  NPM_PERMS="$(ls -l $(npm config get prefix)/bin \
-    | awk 'NR>1{print $3}' \
-    | grep "$(whoami)" \
-    | uniq)"
-
-  if [[ "$NPM_PERMS" == "$(whoami)" ]]; then
-    info "Permissions are fixed. Updating without sudo..."
-    npm install npm -g
-  else
-    error "Permissions needed!"
-    echo "Better to fix your permissions. Read more:"
-    echo "\t <https://docs.npmjs.com/getting-started/fixing-npm-permissions>"
-    echo
-    echo "The script will ask you the password for sudo:"
-    sudo npm install npm -g
-  fi
-
-  # Update packages with npm-check-updates
-  if _exists npx; then
-    npx ncu -g
-  fi
-
-  finish
-}
-
-update_gem() {
-  if ! _exists gem; then
-    return
-  fi
-
-  info "Updating Ruby gems..."
-
-  sudo -v
-  sudo gem update
-
-  finish
-}
-
-on_finish() {
-  success "Done!"
-  success "Happy Coding!"
-  echo
-  echo -ne $RED'-_-_-_-_-_-_-_-_-_-_-_-_-_-_'
-  echo -e  $RESET$BOLD',------,'$RESET
-  echo -ne $YELLOW'-_-_-_-_-_-_-_-_-_-_-_-_-_-_'
-  echo -e  $RESET$BOLD'|   /\_/\\'$RESET
-  echo -ne $GREEN'-_-_-_-_-_-_-_-_-_-_-_-_-_-'
-  echo -e  $RESET$BOLD'~|__( ^ .^)'$RESET
-  echo -ne $CYAN'-_-_-_-_-_-_-_-_-_-_-_-_-_-_'
-  echo -e  $RESET$BOLD'""  ""'$RESET
-  echo
-}
-
-on_error() {
-  error "Ohh... Something unexpected happened!"
-  error "Though, I don't know what happened :("
+if (( EUID == 0 )); then
+  print -u2 'Run this updater as your regular user, without sudo.'
   exit 1
-}
+fi
 
-main() {
-  on_start "$*"
-  update_dotfiles "$*"
-  update_apt_get "$*"
-  update_npm "$*"
-  update_gem "$*"
-  on_finish "$*"
-}
+if (( $# > 1 )); then
+  print -u2 'Usage: zsh scripts/update.zsh [checkout]'
+  exit 2
+fi
 
-main "$*"
+repo_dir=${1:-${0:A:h:h}}
+cd -- "$repo_dir"
+if [[ ! -f install.sh || ! -f sync.py || ! -d home ]]; then
+  print -u2 'Expected a dotfiles checkout.'
+  exit 1
+fi
+
+if ! command -v python3 >/dev/null 2>&1; then
+  print -u2 'Python 3 is required to sync dotfiles.'
+  exit 1
+fi
+
+changes=$(git status --porcelain)
+if [[ -n "$changes" ]]; then
+  print -u2 'The checkout has local changes. Commit or stash them before updating.'
+  exit 1
+fi
+
+git pull --ff-only
+exec bash ./install.sh
