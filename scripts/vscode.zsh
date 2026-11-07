@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+set -e
 trap on_error SIGKILL SIGTERM
 
 e='\033'
@@ -88,7 +89,7 @@ code_install() {
     return
   fi
 
-  code --install-extension $extension
+  code --install-extension "$extension"
 
   finish
 }
@@ -116,8 +117,6 @@ main() {
   # Extensions
   code_install formulahendry.auto-close-tag
   code_install formulahendry.auto-rename-tag
-  code_install coenraads.bracket-pair-colorizer
-  code_install msjsdiag.debugger-for-chrome
   code_install xabikos.javascriptsnippets
   code_install ms-vscode-remote.remote-wsl
   code_install vscode-icons-team.vscode-icons
