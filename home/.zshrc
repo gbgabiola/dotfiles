@@ -6,33 +6,29 @@
 # Environment
 # ------------------------------------------------------------------------------
 
-# Export path to root of dotfiles repo
-export DOTFILES=${DOTFILES:="$HOME/.dotfiles"}
+# Find the checkout even when ~/.zshrc is a symlink.
+if [[ -z $DOTFILES ]]; then
+  DOTFILES=${${(%):-%x}:A:h:h}
+  [[ -f "$DOTFILES/sync.py" ]] || DOTFILES="$HOME/.dotfiles"
+fi
+export DOTFILES
 
-# Locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-
-# Do not override files using `>`, but it's still possible using `>!`
+# Do not override files using >, but allow >! to force it.
 set -o noclobber
 
-# Extend $PATH without duplicates
-_extend_path() {
-  if ! $( echo "$PATH" | tr ":" "\n" | grep -qx "$1" ) ; then
-    export PATH="$1:$PATH"
+# Zsh ties the path array to PATH. Keep the first occurrence of each entry.
+typeset -U path
+for dir in "$HOME/.rvm/bin" "$HOME/.npm-global/bin" "$DOTFILES/bin" "$HOME/.bin"; do
+  [[ -d "$dir" ]] && path=("$dir" "${path[@]}")
+done
+unset dir
+
+if [[ -d "$HOME/.npm-global/lib/node_modules" ]]; then
+  node_modules="$HOME/.npm-global/lib/node_modules"
+  if [[ ":$NODE_PATH:" != *":$node_modules:"* ]]; then
+    export NODE_PATH="${NODE_PATH:+$NODE_PATH:}$node_modules"
   fi
-}
-
-# Add custom bin to $PATH
-[[ -d "$HOME/.bin" ]] && _extend_path "$HOME/.bin"
-[[ -d "$DOTFILES/bin" ]] && _extend_path "$DOTFILES/bin"
-[[ -d "$HOME/.npm-global" ]] && _extend_path "$HOME/.npm-global/bin"
-[[ -d "$HOME/.rvm/bin" ]] && _extend_path "$HOME/.rvm/bin"
-
-# Extend $NODE_PATH
-if [ -d ~/.npm-global ]; then
-  export NODE_PATH="$NODE_PATH:$HOME/.npm-global/lib/node_modules"
+  unset node_modules
 fi
 
 # Default pager
@@ -53,26 +49,24 @@ less_opts=(
 )
 export LESS="${less_opts[*]}"
 
-# Default editor for local and remote sessions
-if [[ -n "$SSH_CONNECTION" ]]; then
-  # on the server
-  if [ command -v vim >/dev/null 2>&1 ]; then
-    export EDITOR='vim'
+# Keep a caller-provided editor, otherwise use an installed terminal editor.
+if [[ -z $EDITOR ]]; then
+  if (( $+commands[vim] )); then
+    EDITOR=vim
   else
-    export EDITOR='vi'
+    EDITOR=vi
   fi
-else
-  export EDITOR='vim'
 fi
+export EDITOR
 
-# SSH
 export SSH_KEY_PATH="$HOME/.ssh/id_rsa"
 
-# GPG
-export GPG_TTY=$(tty)
+if [[ -t 0 ]] && gpg_tty=$(tty); then
+  export GPG_TTY="$gpg_tty"
+fi
+unset gpg_tty
 
-# ------------------------------------------------------------------------------
-# Dependencies
-# ------------------------------------------------------------------------------# Machine-specific overrides
-
-[ -f "$HOME/.localrc" ] && source "$HOME/.localrc"
+# Machine-specific overrides run last.
+if [[ -r "$HOME/.localrc" ]]; then
+  source "$HOME/.localrc"
+fi
