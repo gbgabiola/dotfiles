@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 set -e
+set -o pipefail
 trap on_error SIGKILL SIGTERM
 
 e='\033'
@@ -59,13 +60,10 @@ install_nvm() {
 
   # now install nvm, the latest LTS version of Node and the latest actual verision of Node..
   echo "## Setting up NVM (Node Version Manager) ##"
-  echo >> ~/.bashrc
-  echo "# Set up NVM" >> ~/.bashrc
   info "Installing nvm..."
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+  curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
   nvm install --lts
   nvm install node
   nvm use --lts
@@ -102,21 +100,6 @@ configure_npm_init() {
   finish
 }
 
-fix_npm_perm() {
-  # Fixing npm permissions
-  info "Fixing npm permissions..."
-
-  NPM_PREFIX="$(npm config get prefix)"
-  if [[ "${NPM_PREFIX}" = '/usr/local' ]]; then
-    sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
-  elif [ ! "$NPM_PREFIX" = '/usr' ]; then
-    [ ! -d ~/.npm-global ] && mkdir ~/.npm-global
-    npm config set prefix '~/.npm-global'
-  fi
-
-  finish
-}
-
 on_finish() {
   success "Done!"
   success "Node.js is installed!"
@@ -133,7 +116,6 @@ main() {
   on_start "$*"
   install_nvm "$*"
   configure_npm_init "$*"
-  fix_npm_perm "$*"
 }
 
 main "$*"
