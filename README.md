@@ -90,6 +90,21 @@ while its links are in use.
 | Windows Terminal and VS Code | Use `windows-terminal/settings.json` and `vscode/User/` as references; merge the relevant settings into your app's existing configuration. |
 | Windows startup | Review `Startup/` before applying its Windows startup files manually. |
 
+Run `server [port]` from the directory you want to preview in Ubuntu. It listens
+on `127.0.0.1` and defaults to port 8000.
+
+For a Windows folder you use from WSL, create one link with a new name. Replace
+the source path below with the actual mount path for your distro.
+
+```sh
+ln -sT -- '/mnt/c/Users/YourName/Documents' "$HOME/windows-documents"
+```
+
+To apply VS Code settings, open **Preferences: Open User Settings (JSON)**
+or **Preferences: Open Remote Settings (JSON)** in a WSL window. Merge the
+keys you want from `vscode/User/settings.json` into that JSON object. The
+optional `scripts/vscode.zsh` helper only prompts to install extensions.
+
 If you delete or rename a file under `home/`, check the corresponding link
 in your home directory. Sync does not prune links; remove the old link after
 verifying it points into this checkout.
