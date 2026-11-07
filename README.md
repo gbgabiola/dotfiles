@@ -147,4 +147,8 @@ verifying it points into this checkout.
 - [@denysdovhan](https://github.com/denysdovhan)
 - [@sapegin](https://github.com/sapegin)
 
-MIT © [Genesis Gabiola](https://genesisgabiola.tech)
+## License
+
+Copyright © 2019–2026 [gbgabiola](https://gbgabiola.vercel.app).
+
+This repository is licensed under the [MIT License](LICENSE).
