@@ -12,7 +12,7 @@ syntax on
 set history=500
 
 " :W sudo saves the file
-command W w !sudo tee % > /dev/null
+command W execute 'write !sudo tee -- ' . shellescape(expand('%:p'), 1) . ' > /dev/null'
 
 " Enable wildmeny for command line completions
 " Hit <Tab> after : and see what will happen
