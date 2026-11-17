@@ -109,6 +109,15 @@ this checkout. New links that replaced nothing have no backup; remove those
 links individually if you no longer want them. Keep the checkout in place
 while its links are in use.
 
+Restore requires Linux with filesystem support for atomic no-replace renames.
+Keep the snapshot and destination on the same filesystem. If another process
+creates or replaces a destination during restore, the backup is kept and
+restore reports an error. A temporary recovery path is printed before moving
+a managed link. If automatic rollback cannot put that entry back, the entry
+remains at the printed path beside the snapshot. Inspect both paths before
+resolving the conflict and retrying. After an interrupted run, check the
+printed recovery path as well as the snapshot.
+
 ## Where to make changes
 
 | What | Where to edit or apply it |
