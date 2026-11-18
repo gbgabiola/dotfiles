@@ -67,6 +67,63 @@ class InstallUpdateTests(unittest.TestCase):
         self.assertIn("local changes", result.stderr)
         self.assertEqual(list(self.home.iterdir()), [])
 
+    def git(self, directory, *arguments):
+        return subprocess.check_output(
+            ["git", "-c", "user.name=Test", "-c", "user.email=test@example.invalid",
+             "-c", "commit.gpgsign=false", *arguments],
+            cwd=directory, env=self.environment, text=True, stderr=subprocess.PIPE,
+        ).strip()
+
+    def prepare_upstream(self):
+        self.git(self.checkout, "symbolic-ref", "HEAD", "refs/heads/main")
+        self.git(self.checkout, "add", ".")
+        self.git(self.checkout, "commit", "-qm", "Initial fixture")
+        remote = self.directory / "remote.git"
+        self.git(self.directory, "clone", "--bare", str(self.checkout), str(remote))
+        self.git(self.checkout, "remote", "add", "origin", str(remote))
+        self.git(self.checkout, "fetch", "origin")
+        self.git(self.checkout, "branch", "--set-upstream-to=origin/main")
+        publisher = self.directory / "publisher"
+        self.git(self.directory, "clone", str(remote), str(publisher))
+        (publisher / "home/new-config").write_text("upstream")
+        self.git(publisher, "add", "home/new-config")
+        self.git(publisher, "commit", "-qm", "Add upstream configuration")
+        self.git(publisher, "push", "origin", "main")
+        return self.git(publisher, "rev-parse", "HEAD")
+
+    @unittest.skipUnless(shutil.which("zsh"), "Zsh is required")
+    def test_updater_fast_forwards_and_links_new_configuration(self):
+        expected = self.prepare_upstream()
+        result = subprocess.run(
+            ["zsh", str(self.checkout / "scripts/update.zsh")],
+            cwd=self.directory, env=self.environment,
+            capture_output=True, text=True, timeout=15,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.git(self.checkout, "rev-parse", "HEAD"), expected)
+        self.assertEqual(
+            (self.home / "new-config").resolve(), self.checkout / "home/new-config"
+        )
+        self.assertEqual((self.home / "new-config").read_text(), "upstream")
+
+    @unittest.skipUnless(shutil.which("zsh"), "Zsh is required")
+    def test_updater_rejects_divergent_history_before_installing(self):
+        self.prepare_upstream()
+        (self.checkout / "local-change").write_text("local")
+        self.git(self.checkout, "add", "local-change")
+        self.git(self.checkout, "commit", "-qm", "Local change")
+        previous = self.git(self.checkout, "rev-parse", "HEAD")
+        result = subprocess.run(
+            ["zsh", str(self.checkout / "scripts/update.zsh")],
+            cwd=self.directory, env=self.environment,
+            capture_output=True, text=True, timeout=15,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(self.git(self.checkout, "rev-parse", "HEAD"), previous)
+        self.assertEqual((self.checkout / "local-change").read_text(), "local")
+        self.assertFalse((self.checkout / "home/new-config").exists())
+        self.assertEqual(list(self.home.iterdir()), [])
+
 
 if __name__ == "__main__":
     unittest.main()
