@@ -149,6 +149,18 @@ If you delete or rename a file under `home/`, check the corresponding link
 in your home directory. Sync does not prune links; remove the old link after
 verifying it points into this checkout.
 
+## Validation
+
+With Python 3, Git, Vim, Bash, and Zsh installed, run from the checkout:
+
+```sh
+python3 -B -m unittest discover -s tests -v
+```
+
+Tests use temporary directories and stub privileged commands. Run as a regular
+user so the installer integration tests execute. GitHub Actions runs the suite
+and shell syntax checks for pull requests and pushes to main.
+
 ## Credits
 
 - [@holman](https://github.com/holman)
