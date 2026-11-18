@@ -1,0 +1,26 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test prerequisites
+        run: sudo apt-get update && sudo apt-get install -y vim zsh
+      - name: Check shell syntax
+        run: |
+          bash -n install.sh
+          bash -n bin/server
+          bash -n bin/nyan
+          zsh -n home/.zshrc
+          for script in scripts/*.zsh; do zsh -n "$script"; done
+      - name: Run regression tests
+        run: python3 -B -m unittest discover -s tests -v
