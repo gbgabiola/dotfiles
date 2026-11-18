@@ -31,7 +31,9 @@ def main():
     backup = (ROOT / args.backup.expanduser()).resolve()
     if not source.is_dir() or not destination.is_dir():
         parser.error("source and destination must be existing directories")
-    if source == destination or source in backup.parents or backup == source:
+    if source == destination or source in destination.parents:
+        parser.error("destination must be outside the source directory")
+    if source in backup.parents or backup == source:
         parser.error("source must be separate from the destination and backup")
 
     entries = [
