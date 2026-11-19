@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 
 set -e
-trap on_error SIGKILL SIGTERM
 
 e='\033'
 RESET="${e}[0m"
@@ -34,7 +33,6 @@ success() {
 finish() {
   success "Done!"
   echo
-  sleep 1
 }
 
 link_to() {
@@ -82,14 +80,20 @@ code_install() {
 
   info "We are going to install $extension."
   echo "Link: $(link_to $extension)"
-  ask "Do you agree to install $(info $extension)?" && read answer
+  ask "Do you agree to install $extension?" && read -r answer
   if [[ ${answer} != "y" ]]; then
     success "Skipping..."
     echo
     return
   fi
 
-  code --install-extension "$extension"
+  if code --install-extension "$extension"; then
+    :
+  else
+    local exit_status=$?
+    print -u2 -- "Failed to install $extension (exit $exit_status)."
+    exit "$exit_status"
+  fi
 
   finish
 }
@@ -98,14 +102,6 @@ on_finish() {
   echo
   success "VSCode successfully configured!"
   echo
-}
-
-on_error() {
-  echo
-  error "Ohh... Something unexpected happened!"
-  error "Though, I don't know what happened :("
-  echo
-  exit 1
 }
 
 main() {
