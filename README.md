@@ -130,6 +130,10 @@ printed recovery path as well as the snapshot.
 | Windows Terminal and VS Code | Use `windows-terminal/settings.json` and `vscode/User/` as references; merge the relevant settings into your app's existing configuration. |
 | Windows startup | Review `Startup/` before applying its Windows startup files manually. |
 
+For Linux GUI applications on supported Windows 11 and WSL 2 installations,
+use [WSLg](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps).
+The legacy access-control-disabled XLaunch reference has been retired.
+
 Run `server [port]` from the directory you want to preview in Ubuntu. It listens
 on `127.0.0.1` and defaults to port 8000.
 
