@@ -133,12 +133,23 @@ printed recovery path as well as the snapshot.
 Run `server [port]` from the directory you want to preview in Ubuntu. It listens
 on `127.0.0.1` and defaults to port 8000.
 
-For a Windows folder you use from WSL, create one link with a new name. Replace
-the source path below with the actual mount path for your distro.
+For a Windows folder you use from WSL, create one link with a new name.
+WSL's default automount root places the C drive at `/mnt/c`. Applying this
+repository's `etc/wsl.conf` sets `root = /`, which places it at `/c`.
+Check your active mount path and replace `YourName` with your Windows username.
 
 ```sh
-ln -sT -- '/mnt/c/Users/YourName/Documents' "$HOME/windows-documents"
+windows_documents='/mnt/c/Users/YourName/Documents'
+# With this repository's automount setting, use /c/Users/YourName/Documents.
+if [ -d "$windows_documents" ]; then
+  ln -sT -- "$windows_documents" "$HOME/windows-documents"
+else
+  printf 'Windows Documents directory not found: %s\n' "$windows_documents" >&2
+fi
 ```
+
+See the [WSL automount documentation](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#automount-settings)
+for the mount-root setting.
 
 To apply VS Code settings, open **Preferences: Open User Settings (JSON)**
 or **Preferences: Open Remote Settings (JSON)** in a WSL window. Merge the
