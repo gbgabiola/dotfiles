@@ -1,4 +1,4 @@
-# Genesis Gabiola's dotfiles
+# gbgabiola's dotfiles
 
 Personal shell, Git, editor, and terminal settings for Ubuntu on WSL 2. Native
 Ubuntu uses the same Linux setup. macOS and other Linux distributions are
@@ -174,7 +174,6 @@ following fields before copying settings.
 | `vscode/User/settings.json` | Install VS Code and the formatter extensions you enable. Replace `terminal.external.windowsExec` with your Windows Terminal path. Select installed profiles for `terminal.integrated.defaultProfile.windows` and `.linux`. Install the fonts named in `editor.fontFamily` and `terminal.integrated.fontFamily`, or select installed fonts. |
 | `windows-terminal/settings.json` | Run `wsl --list --quiet` in Windows to find your distro names. Adapt `commandline` and `startingDirectory` for your distro and Linux username. Keep your existing profile GUIDs and set `defaultProfile` to the GUID you use. Install MesloLGS NF or change `fontFace`. Supply your own `backgroundImage`, or remove the background-image settings. |
 | `Startup/hotkeys.ahk` | The reference uses AutoHotkey v1 command syntax. Check interpreter compatibility before enabling it. Replace the GIMP executable, Chrome and foobar2000 commands, `D:` paths, and the `Ubuntu-20.04` path containing `nick`. Remove individual hotkeys for applications or folders you do not use. |
-| `home/.hyper.js` | Install Hyper on the OS where you use it. The supplied `shell: 'wsl.exe'` targets Windows. For Linux, choose an installed shell or an empty shell value for the login-shell default. Review `plugins` before enabling their downloads, and choose installed fonts. |
 
 The VS Code reference selects Dracula and Material Icon Theme. The optional
 extension helper does not install these appearance extensions. To use them,
@@ -190,13 +189,6 @@ Alternatively, choose installed themes for `workbench.colorTheme` and
 `workbench.iconTheme`. Extension details are available from the
 [Dracula listing](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula)
 and [Material Icon Theme listing](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme).
-
-For Hyper, open its configuration from the application and merge the reference
-there. Current configuration locations are `%APPDATA%/Hyper/.hyper.js` on
-Windows and `~/.config/Hyper/.hyper.js` on Linux. The home-directory link made
-by this installer belongs to the Linux user and does not configure Windows
-Hyper. An existing application-directory configuration takes precedence over
-`~/.hyper.js`. See the [Hyper configuration documentation](https://hyper.is/#cfg).
 
 ## Validation
 
