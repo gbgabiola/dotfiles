@@ -31,6 +31,8 @@
   "editor.wordWrap": "on",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": "off",
   "extensions.ignoreRecommendations": false,
   "git.alwaysShowStagedChangesResourceGroup": true,
   "git.confirmSync": false,
@@ -47,6 +49,7 @@
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "terminal.external.windowsExec": "C:\\Users\\genesis\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe",
+  "update.mode": "manual",
   "window.closeWhenEmpty": true,
   "window.openFilesInNewWindow": "off",
   "workbench.colorTheme": "Dracula",
@@ -63,13 +66,13 @@
    * ******************************
    */
   "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
+    "javascript": "javascriptreact",
     // "ejs": "html"
     // "hbs": "html"
     // "typescript": "html",
     // "markdown": "html",
-    // "erb": "html",
-    // "jsx": "html",
+    "erb": "html",
+    "jsx": "html",
   },
 
   /**
@@ -81,54 +84,48 @@
   "editor.formatOnSave": true,
   // tell the ESLint plugin to run on save
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.fixAll.eslint": true
-  },
-  "[css]": {
-    "editor.defaultFormatter": "vscode.css-language-features"
+    "source.fixAll.eslint": "explicit",
   },
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one",
     "editor.quickSuggestions": {
       "comments": "on",
       "strings": "on",
-      "other": "on"
+      "other": "on",
     },
-    "files.trimTrailingWhitespace": false
+    "files.trimTrailingWhitespace": false,
   },
   "[python]": {
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
   },
   "[php]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
   },
   // Optional BUT IMPORTANT: If you have the prettier extension enabled for other languages like CSS and HTML, turn it off for JS since we are doing it through Eslint already
-  // "[javascript]": {
-  //   // turn it off for JS and JSX, we will do this via eslint
-  //   "editor.formatOnSave": false,
-  //   "editor.defaultFormatter": "esbenp.prettier-vscode" // or null
-  // },
-  // "[javascriptreact]": {
-  //   "editor.formatOnSave": false,
-  //   "editor.defaultFormatter": "esbenp.prettier-vscode" // or null
-  // },
-  "eslint.validate": [
-    "typescript",
-    "typescriptreact",
-    "javascript",
-    "javascriptreact"
-  ],
+  "[javascript]": {
+    "editor.tabSize": 2,
+    // turn it off for JS and JSX, we will do this via eslint
+    // "editor.formatOnSave": false,
+    // "editor.defaultFormatter": "esbenp.prettier-vscode" // or null
+  },
+  "[javascriptreact]": {
+    "editor.tabSize": 2,
+    // "editor.formatOnSave": false,
+    // "editor.defaultFormatter": "esbenp.prettier-vscode" // or null
+  },
+  "eslint.validate": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
   "prettier.arrowParens": "avoid",
+  "prettier.printWidth": 120,
   "prettier.singleQuote": true,
   "files.associations": {
     "*.module": "php",
-    "*.ejs": "html"
+    "*.ejs": "html",
     // "*.js": "javascriptreact"
   },
   "explorer.confirmDragAndDrop": false,
   "gitlens.defaultDateLocale": null,
   "gitlens.hovers.currentLine.over": "line",
-  "html.format.enable": false,
+  // "html.format.enable": false,
   // "mssql.connections": [
   //   {
   //     "server": "127.0.0.1",
@@ -140,7 +137,17 @@
   //     "savePassword": true
   //   }
   // ],
-  "diffEditor.ignoreTrimWhitespace": false
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.accessibilitySupport": "off",
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+  },
+  "security.allowedUNCHosts": ["wsl.localhost"],
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "remote.autoForwardPortsSource": "hybrid",
   // "liveSassCompile.settings.formats": [
   //   {
   //     "format": "expanded",

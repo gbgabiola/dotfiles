@@ -1,172 +1,162 @@
 {
-  "$schema": "https://aka.ms/terminal-profiles-schema",
-  // Add custom actions and keybindings to this array.
-  // To unbind a key combination from your defaults.json, set the command to "unbound".
-  // To learn more about actions and keybindings, visit https://aka.ms/terminal-keybindings
-  "actions": [
-    // Copy and paste are bound to Ctrl+Shift+C and Ctrl+Shift+V in your defaults.json.
-    // These two lines additionally bind them to Ctrl+C and Ctrl+V.
-    // To learn more about selection, visit https://aka.ms/terminal-selection
-    {
-      "command": {
-        "action": "copy",
-        "singleLine": false
-      },
-      "keys": "ctrl+c"
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [
+        {
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            },
+            "id": "User.copy.644BA8F2"
+        },
+        {
+            "command": "paste",
+            "id": "User.paste"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
+        }
+    ],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{ae316063-89c3-51e4-8c2d-ec37baf16005}",
+    "initialCols": 70,
+    "initialRows": 20,
+    "keybindings": [
+        {
+            "id": "User.copy.644BA8F2",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "User.paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
+        }
+    ],
+    "newTabMenu": [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": {
+        "defaults": {
+            "font": {
+                "face": "Consolas"
+            }
+        },
+        "list": [
+            {
+                "backgroundImage": "desktopWallpaper",
+                "backgroundImageOpacity": 0.2,
+                "colorScheme": "Dracula",
+                "font": {
+                    "face": "Hack Nerd Font Mono",
+                    "size": 10
+                },
+                "guid": "{ae316063-89c3-51e4-8c2d-ec37baf16005}",
+                "hidden": false,
+                "name": "Ubuntu-WSL",
+                "opacity": 100,
+                "source": "Windows.Terminal.Wsl",
+                "useAcrylic": true
+            },
+            {
+                "colorScheme": "Campbell Powershell",
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{37d702c6-8b50-53dc-a522-332ba48e32e2}",
+                "hidden": false,
+                "name": "ddev",
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            },
+            {
+                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                "hidden": false,
+                "name": "Azure Cloud Shell",
+                "source": "Windows.Terminal.Azure"
+            },
+            {
+                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+                "hidden": false,
+                "name": "Git Bash",
+                "source": "Git"
+            }
+        ]
     },
-    {
-      "command": "paste",
-      "keys": "ctrl+v"
-    },
-    // Press Ctrl+Shift+F to open the search box
-    {
-      "command": "find",
-      "keys": "ctrl+shift+f"
-    },
-    // Press Alt+Shift+D to open a new pane.
-    // - "split": "auto" makes this pane open in the direction that provides the most surface area.
-    // - "splitMode": "duplicate" makes the new pane use the focused pane's profile.
-    // To learn more about panes, visit https://aka.ms/terminal-panes
-    {
-      "command": {
-        "action": "splitPane",
-        "split": "auto",
-        "splitMode": "duplicate"
-      },
-      "keys": "alt+shift+d"
-    },
-    {
-      "command": "closeTab",
-      "keys": "ctrl+w"
-    },
-    {
-      "command": "newTab",
-      "keys": "ctrl+t"
-    }
-  ],
-  "alwaysShowTabs": true,
-  "copyFormatting": "none",
-  "copyOnSelect": false,
-  "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-  "initialCols": 100,
-  "initialRows": 25,
-  "profiles": {
-    "defaults": {
-      "fontSize": 10,
-      "padding": "0"
-    },
-    "list": [
-      {
-        "colorScheme": "Campbell",
-        "backgroundImage": "ms-appdata:///roaming/dev-dark-v1.png",
-        "backgroundImageAlignment": "right",
-        "backgroundImageOpacity": 0.30000001192092896,
-        "commandline": "wsl ~ -d Ubuntu",
-        "cursorColor": "#00FF00",
-        "fontFace": "MesloLGS NF",
-        "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-        "hidden": false,
-        "name": "Ubuntu",
-        "padding": "5",
-        "source": "Windows.Terminal.Wsl",
-        "startingDirectory": "\\\\wsl$\\Ubuntu\\home\\gbgabiola"
-      },
-      {
-        "commandline": "powershell.exe",
-        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-        "hidden": false,
-        "name": "Windows PowerShell"
-      },
-      {
-        "commandline": "cmd.exe",
-        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-        "hidden": false,
-        "name": "Command Prompt"
-      },
-      {
-        "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-        "hidden": false,
-        "name": "Azure Cloud Shell",
-        "source": "Windows.Terminal.Azure"
-      },
-      {
-        "fontFace": "MesloLGS NF",
-        "fontSize": 10,
-        "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
-        "hidden": false,
-        "name": "Ubuntu-20.04",
-        "source": "Windows.Terminal.Wsl",
-        "startingDirectory": "\\\\wsl$\\Ubuntu-20.04\\home\\genesis"
-      }
-    ]
-  },
-  "schemes": [
-    {
-      "background": "#0C0C0C",
-      "black": "#0C0C0C",
-      "blue": "#0037DA",
-      "brightBlack": "#767676",
-      "brightBlue": "#3B78FF",
-      "brightCyan": "#61D6D6",
-      "brightGreen": "#16C60C",
-      "brightPurple": "#B4009E",
-      "brightRed": "#E74856",
-      "brightWhite": "#F2F2F2",
-      "brightYellow": "#F9F1A5",
-      "cursorColor": "#FFFFFF",
-      "cyan": "#3A96DD",
-      "foreground": "#CCCCCC",
-      "green": "#13A10E",
-      "name": "Campbell",
-      "purple": "#881798",
-      "red": "#C50F1F",
-      "selectionBackground": "#FFFFFF",
-      "white": "#CCCCCC",
-      "yellow": "#C19C00"
-    },
-    {
-      "background": "#282C34",
-      "black": "#282C34",
-      "blue": "#61AFEF",
-      "brightBlack": "#5A6374",
-      "brightBlue": "#61AFEF",
-      "brightCyan": "#56B6C2",
-      "brightGreen": "#98C379",
-      "brightPurple": "#C678DD",
-      "brightRed": "#E06C75",
-      "brightWhite": "#DCDFE4",
-      "brightYellow": "#E5C07B",
-      "cursorColor": "#FFFFFF",
-      "cyan": "#56B6C2",
-      "foreground": "#DCDFE4",
-      "green": "#98C379",
-      "name": "One Half Dark",
-      "purple": "#C678DD",
-      "red": "#E06C75",
-      "selectionBackground": "#FFFFFF",
-      "white": "#DCDFE4",
-      "yellow": "#E5C07B"
-    },
-    {
-      "name": "Cobalt2",
-      "background": "#193549",
-      "black": "#000000",
-      "blue": "#1478DB",
-      "brightBlack": "#808080",
-      "brightBlue": "#1478DB",
-      "brightCyan": "#00ffff",
-      "brightGreen": "#33ff00",
-      "brightPurple": "#cc00ff",
-      "brightRed": "#ff0000",
-      "brightWhite": "#ffffff",
-      "brightYellow": "#ffff00",
-      "cyan": "#00c5c7",
-      "foreground": "#c7c7c7",
-      "green": "#3AD900",
-      "purple": "#ff2c70",
-      "red": "#ff2600",
-      "white": "#c7c7c7",
-      "yellow": "#ffc600"
-    }
-  ]
+    "schemes": [
+        {
+            "background": "#193549",
+            "black": "#000000",
+            "blue": "#1478DB",
+            "brightBlack": "#808080",
+            "brightBlue": "#1478DB",
+            "brightCyan": "#00FFFF",
+            "brightGreen": "#33FF00",
+            "brightPurple": "#CC00FF",
+            "brightRed": "#FF0000",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#FFFF00",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#00C5C7",
+            "foreground": "#C7C7C7",
+            "green": "#3AD900",
+            "name": "Cobalt2",
+            "purple": "#FF2C70",
+            "red": "#FF2600",
+            "selectionBackground": "#FFFFFF",
+            "white": "#C7C7C7",
+            "yellow": "#FFC600"
+        },
+        {
+            "background": "#282A36",
+            "black": "#21222C",
+            "blue": "#BD93F9",
+            "brightBlack": "#6272A4",
+            "brightBlue": "#D6ACFF",
+            "brightCyan": "#A4FFFF",
+            "brightGreen": "#69FF94",
+            "brightPurple": "#FF92DF",
+            "brightRed": "#FF6E6E",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#FFFFA5",
+            "cursorColor": "#F8F8F2",
+            "cyan": "#8BE9FD",
+            "foreground": "#F8F8F2",
+            "green": "#50FA7B",
+            "name": "Dracula",
+            "purple": "#FF79C6",
+            "red": "#FF5555",
+            "selectionBackground": "#44475A",
+            "white": "#F8F8F2",
+            "yellow": "#F1FA8C"
+        }
+    ],
+    "themes": [],
+    "useAcrylicInTabRow": false
 }
