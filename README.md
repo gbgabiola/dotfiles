@@ -1,4 +1,6 @@
-# Genesis Gabiola's dotfiles
+# gbgabiola's dotfiles
+
+[![README views](https://hits.sh/github.com/gbgabiola/dotfiles.svg?label=README%20views&color=006a60)](https://hits.sh/github.com/gbgabiola/dotfiles/)
 
 Personal shell, Git, editor, and terminal settings for Ubuntu on WSL 2. Native
 Ubuntu uses the same Linux setup. macOS and other Linux distributions are
@@ -118,85 +120,35 @@ remains at the printed path beside the snapshot. Inspect both paths before
 resolving the conflict and retrying. After an interrupted run, check the
 printed recovery path as well as the snapshot.
 
-## Where to make changes
+## Configuration files
 
-| What | Where to edit or apply it |
+| File or directory | Where to apply changes |
 | --- | --- |
-| Shared shell settings | Edit `home/.zshrc`. Put environment and PATH changes near the top; keep the local override block last. |
-| Shared Git settings | Edit the relevant section in `home/.gitconfig`. Add identity only to `~/.gitlocal`. |
-| New shared home files | Add them to `home/` and preview with `bash install.sh --dry-run`. Put samples in files ending in `.example`. |
-| Commands and tooling | Add commands to `bin/`; add standalone setup utilities to `scripts/`. |
-| WSL settings | Review `.wslconfig` for the Windows user profile and `etc/wsl.conf` for `/etc/wsl.conf` inside Ubuntu. Merge only the settings you need. |
-| Windows Terminal and VS Code | Use `windows-terminal/settings.json` and `vscode/User/` as references; merge the relevant settings into your app's existing configuration. |
-| Windows startup | Review `Startup/` before applying its Windows startup files manually. |
+| `home/` | Shared home files managed by the installer. Add personal shell overrides to `~/.localrc` and Git identity to `~/.gitlocal`. |
+| `windows-terminal/settings.json` | Merge into Windows Terminal's settings JSON. The default profile is `Ubuntu-WSL`, with optional `ddev` and Git Bash profiles. Adapt profile GUIDs to your installed profiles. |
+| `vscode/User/settings.json` | Merge into VS Code User Settings (JSON), or Remote Settings (JSON) for WSL-specific settings. Review the Windows Terminal executable path and installed shell profiles. |
+| `Startup/hotkeys.ahk` | AutoHotkey v1-style reference. Replace application and folder paths, or remove unused hotkeys before enabling it. |
+| `.wslconfig` | Merge selected settings into `%UserProfile%/.wslconfig` on Windows. |
+| `etc/wsl.conf` | Merge selected settings into `/etc/wsl.conf` inside Ubuntu. Its `root = /` setting mounts the C drive at `/c` instead of the default `/mnt/c`. |
+| `bin/` and `scripts/` | User commands and optional setup utilities. `server [port]` serves the current directory on `127.0.0.1`, using port 8000 by default. |
 
-For Linux GUI applications on supported Windows 11 and WSL 2 installations,
-use [WSLg](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps).
-The legacy access-control-disabled XLaunch reference has been retired.
-
-Run `server [port]` from the directory you want to preview in Ubuntu. It listens
-on `127.0.0.1` and defaults to port 8000.
-
-For a Windows folder you use from WSL, create one link with a new name.
-WSL's default automount root places the C drive at `/mnt/c`. Applying this
-repository's `etc/wsl.conf` sets `root = /`, which places it at `/c`.
-Check your active mount path and replace `YourName` with your Windows username.
-
-```sh
-windows_documents='/mnt/c/Users/YourName/Documents'
-# With this repository's automount setting, use /c/Users/YourName/Documents.
-if [ -d "$windows_documents" ]; then
-  ln -sT -- "$windows_documents" "$HOME/windows-documents"
-else
-  printf 'Windows Documents directory not found: %s\n' "$windows_documents" >&2
-fi
-```
-
-See the [WSL automount documentation](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#automount-settings)
-for the mount-root setting.
-
-To apply VS Code settings, open **Preferences: Open User Settings (JSON)**
-or **Preferences: Open Remote Settings (JSON)** in a WSL window. Merge the
-keys you want from `vscode/User/settings.json` into that JSON object. The
-optional `scripts/vscode.zsh` helper only prompts to install extensions.
-
-If you delete or rename a file under `home/`, check the corresponding link
-in your home directory. Sync does not prune links; remove the old link after
-verifying it points into this checkout.
-
-## Optional profile prerequisites
-
-Apply these references in the application where you use them. Review the
-following fields before copying settings.
-
-| Reference | Prerequisites and fields to adapt |
-| --- | --- |
-| `vscode/User/settings.json` | Install VS Code and the formatter extensions you enable. Replace `terminal.external.windowsExec` with your Windows Terminal path. Select installed profiles for `terminal.integrated.defaultProfile.windows` and `.linux`. Install the fonts named in `editor.fontFamily` and `terminal.integrated.fontFamily`, or select installed fonts. |
-| `windows-terminal/settings.json` | Run `wsl --list --quiet` in Windows to find your distro names. Adapt `commandline` and `startingDirectory` for your distro and Linux username. Keep your existing profile GUIDs and set `defaultProfile` to the GUID you use. Install MesloLGS NF or change `fontFace`. Supply your own `backgroundImage`, or remove the background-image settings. |
-| `Startup/hotkeys.ahk` | The reference uses AutoHotkey v1 command syntax. Check interpreter compatibility before enabling it. Replace the GIMP executable, Chrome and foobar2000 commands, `D:` paths, and the `Ubuntu-20.04` path containing `nick`. Remove individual hotkeys for applications or folders you do not use. |
-| `home/.hyper.js` | Install Hyper on the OS where you use it. The supplied `shell: 'wsl.exe'` targets Windows. For Linux, choose an installed shell or an empty shell value for the login-shell default. Review `plugins` before enabling their downloads, and choose installed fonts. |
-
-The VS Code reference selects Dracula and Material Icon Theme. The optional
-extension helper does not install these appearance extensions. To use them,
-run these commands in the terminal associated with your intended VS Code
-installation:
+Install FiraCode NFM and Hack Nerd Font Mono, or select fonts already installed
+on your machine. The VS Code reference uses Dracula and Material Icon Theme;
+install them if you want to use those settings:
 
 ```sh
 code --install-extension dracula-theme.theme-dracula
 code --install-extension PKief.material-icon-theme
 ```
 
-Alternatively, choose installed themes for `workbench.colorTheme` and
-`workbench.iconTheme`. Extension details are available from the
-[Dracula listing](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula)
-and [Material Icon Theme listing](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme).
+Run `zsh scripts/vscode.zsh` to choose additional extensions. The supplied
+VS Code settings use manual application updates and disable automatic extension
+checks and updates. Review updates manually in VS Code.
 
-For Hyper, open its configuration from the application and merge the reference
-there. Current configuration locations are `%APPDATA%/Hyper/.hyper.js` on
-Windows and `~/.config/Hyper/.hyper.js` on Linux. The home-directory link made
-by this installer belongs to the Linux user and does not configure Windows
-Hyper. An existing application-directory configuration takes precedence over
-`~/.hyper.js`. See the [Hyper configuration documentation](https://hyper.is/#cfg).
+When removing or renaming a file under `home/`, inspect the corresponding
+home-directory link. Sync does not prune old links. After updating from a
+version that included the retired terminal configuration, inspect old links
+before removing them, and only unlink entries that point into this checkout.
 
 ## Validation
 
